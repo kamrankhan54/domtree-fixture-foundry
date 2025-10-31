@@ -35,26 +35,36 @@ It combines **automation efficiency** with **human insight** — letting teams m
 
 ```bash
 # 1. Install
-npm i -D @domtree/fixture-foundry
+npm i -D domtree-fixture-foundry
 
 # 2. Add a CSV (100 sample people)
 mkdir -p data
 curl -L -o data/users.csv https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/people/people-100.csv
 
 # 3. Create config
+🧩 Create a Config File
+
+Create a configuration file (e.g. domtree.config.json) in your project root.
+This defines where your input data lives, which frameworks to output for, and where fixtures should be saved.
 cat > domtree.config.json << 'JSON'
 {
-  "input": "data/users.csv",
+  "input": "data/<your-file>.csv",
   "frameworks": ["cypress", "playwright", "raw"],
   "outputDir": "dist",
-  "datasetName": "users",
-  "mask": ["email", "phone"],
-  "enrich": {
-    "fillMissingStrings": "fixed-fake",
-    "fillMissingNumbers": 0
-  }
+  "datasetName": "<dataset-name>",
+  "mask": ["email", "phone"]
 }
 JSON
+
+Example:
+
+input: path to your source data (CSV or JSON)
+frameworks: fixture formats to generate
+outputDir: where to place generated fixtures
+datasetName: base name for output files
+mask: fields to anonymize deterministically
+
+💡 You can also add optional keys like infer, mappings, or enrich for more control.
 
 # 4. Generate
 npx domtree-fixtures generate --config domtree.config.json
