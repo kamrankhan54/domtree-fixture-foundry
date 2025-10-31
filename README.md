@@ -67,11 +67,7 @@ dist/
  └─ users.json
 
 🪜 Step-by-Step Example
-1️⃣ Create a sample CSV
-
-first name,last name,age,tel number
-kamran,khan,43,7442233222
-syeda,islam,34,182672622
+1️⃣ Create a sample CSV or any other file format with data
 
 2️⃣ Create domtree.config.json
 
