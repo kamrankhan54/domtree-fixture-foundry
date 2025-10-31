@@ -1,0 +1,52 @@
+# ===========================================
+# Node & TypeScript Project Git Ignore
+# ===========================================
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+out/
+build/
+coverage/
+
+# TypeScript cache / temp
+*.tsbuildinfo
+*.tgz
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Tests and reports
+junit.xml
+coverage-final.json
+nyc_output/
+
+# Local data or generated files
+data/
+tmp/
+.cache/
+*.csv
+*.json.backup
+
+# Ignore system files
+*.bak
+*.tmp

@@ -1,0 +1,15 @@
+{
+    "input": "data/users.csv",
+    "frameworks": ["cypress", "playwright", "raw"],
+    "outputDir": "dist",
+    "datasetName": "users",
+    "infer": { "sampleRows": 500 },
+    "mappings": {
+      "email": { "type": "email", "required": true },
+      "created_at": { "type": "date", "format": "iso" }
+    },
+    "mask": ["email", "phone"],
+    "splitPerRecord": false,
+    "enrich": { "fillMissingStrings": "fixed-fake", "fillMissingNumbers": 0 }
+  }
+  
