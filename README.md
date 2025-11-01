@@ -1,109 +1,230 @@
-# 🧩 Domtree Fixture Foundry
+🧩 Domtree Fixture Foundry
 
-[![npm version](https://img.shields.io/npm/v/@domtree/fixture-foundry.svg)](https://www.npmjs.com/package/@domtree/fixture-foundry)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-![Node](https://img.shields.io/badge/node-%3E%3D18.x-blue.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)
+Generate clean, consistent, and test-ready data fixtures — faster, smarter, and with quality intact.
 
-**Generate clean, consistent, and test-ready data fixtures — faster, smarter, and with quality intact.**
+🚀 Overview
 
----
+Domtree Fixture Foundry is a lightweight CLI that transforms real data into normalised, ready-to-use fixtures for Cypress, Playwright, or raw JSON tests.
 
-## 🚀 Overview
+It now also includes AI-powered extraction for unstructured documents — letting you convert PDFs and Word files into structured JSON automatically.
 
-**Domtree Fixture Foundry** is a lightweight CLI that transforms real data (CSV or JSON) into normalized, ready-to-use fixtures for **Cypress**, **Playwright**, or raw JSON tests.
+Human insight. AI precision.
+Build quality test data faster, with real product understanding.
 
-It combines **automation efficiency** with **human insight** — letting teams move faster without compromising product understanding or quality.
+✨ Features
 
-> _Built in Node.js + TypeScript — with schema inference, deterministic masking, and AI-ready extension points._
+📄 CSV / JSON ingestion — reads and cleans raw structured data
 
----
+🧠 AI document extraction (PDF / DOCX) — turns reports or specs into JSON
 
-## ✨ Features
+⚙️ Schema inference — detects numeric, boolean, date, email, and enum types
 
-- 📄 **CSV / JSON ingestion** — reads and cleans raw data  
-- 🧠 **Schema inference** — detects boolean, numeric, date, email, enum types  
-- 🧩 **Test-ready output** — generates fixtures for Cypress, Playwright, or generic JSON  
-- 🔒 **Deterministic masking** — safely hides PII while keeping tests repeatable  
-- ⚙️ **Header normalization** — trims, removes BOMs, and converts to `camelCase`  
-- 🧱 **Configurable rules** — custom mappings, enrichment, and masking  
-- ⚡ **Repeatable builds** — deterministic for stable CI runs  
+🔒 Deterministic masking — hides PII while keeping data stable
 
----
+🧩 Test-ready output — generates fixtures for Cypress, Playwright, or raw JSON
 
-## ⚡ Quickstart
+🧱 Configurable rules — custom mappings, enrichment, and masking
 
-```bash
-# 1. Install
+⚡ Repeatable builds — deterministic for stable CI runs
+
+⚡ Quickstart
+1️⃣ Install
 npm i -D domtree-fixture-foundry
 
-# 2. Add a CSV (100 sample people)
+2️⃣ Create Your Input Data
+
+You can start with a CSV, JSON, PDF, or DOCX file.
+
+Example CSV:
+
 mkdir -p data
 curl -L -o data/users.csv https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/people/people-100.csv
 
-# 3. Create config
-🧩 Create a Config File
 
-Create a configuration file (e.g. domtree.config.json) in your project root.
-This defines where your input data lives, which frameworks to output for, and where fixtures should be saved.
-cat > domtree.config.json << 'JSON'
+Example PDF (e.g. test.pdf):
+A table of companies like:
+
+Company	Contact	Telephone no	Address	Status
+Abc1	John Smith	01223232332	23 Test Road	Live
+Abc2	Dan James	12128176287	24 Test Road	Live
+
+Example DOCX (e.g. companies.docx):
+A Word document with the same tabular structure or key–value details.
+
+3️⃣ Create a Config File
+
+Create a file named domtree.config.json in your project root:
+
 {
-  "input": "data/<your-file>.csv",
+  "input": "data/users.csv",
   "frameworks": ["cypress", "playwright", "raw"],
   "outputDir": "dist",
-  "datasetName": "<dataset-name>",
+  "datasetName": "users",
   "mask": ["email", "phone"]
 }
-JSON
+
+Key	Description
+input	Path to your source data (CSV, JSON, PDF, DOCX)
+frameworks	Output fixture formats
+outputDir	Folder for generated fixtures
+datasetName	Base name for files
+mask	Fields to anonymise deterministically
+
+💡 You can add optional keys like infer, mappings, or enrich for custom data rules.
+
+🧠 AI-Powered Document Extraction
+
+Use AI to extract structured data from unstructured documents (PDF or DOCX).
+The model automatically identifies tables, fields, and relationships, returning clean JSON.
+
+Uses OpenAI GPT-4o-mini for efficient, accurate extraction.
+
+📄 Example: PDF Extraction
+
+Input: data/test.pdf (a table of companies)
+
+Run:
+
+npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
+
+
+Output:
+
+[
+  {
+    "company": "Abc1",
+    "contact": "John Smith",
+    "telephone": "01223232332",
+    "address": "23 Test Road",
+    "status": "Live"
+  },
+  {
+    "company": "Abc2",
+    "contact": "Dan James",
+    "telephone": "12128176287",
+    "address": "24 Test Road",
+    "status": "Live"
+  }
+]
+
+
+✅ AI reads the PDF, recognises headers, and structures the table automatically.
+
+📝 Example: DOCX Extraction
+
+Input: data/companies.docx (table or structured text)
+
+Run:
+
+npx domtree-fixtures extract --input data/companies.docx --output data/companies.json --ai
+
+
+Output:
+
+[
+  {
+    "company": "Abc1",
+    "contact": "John Smith",
+    "telephone": "01223232332",
+    "address": "23 Test Road",
+    "status": "Live"
+  },
+  {
+    "company": "Abc2",
+    "contact": "Dan James",
+    "telephone": "12128176287",
+    "address": "24 Test Road",
+    "status": "Live"
+  }
+]
+
+
+✅ Works for both Word tables and paragraph key/value structures.
+AI automatically infers headers and returns consistent JSON objects.
+
+🔧 Without AI (basic extraction)
+
+If you don’t include --ai, the tool will still attempt a simple text or table parse using built-in logic.
 
 Example:
 
-input: path to your source data (CSV or JSON)
-frameworks: fixture formats to generate
-outputDir: where to place generated fixtures
-datasetName: base name for output files
-mask: fields to anonymize deterministically
+npx domtree-fixtures extract --input data/test.pdf --output data/test_raw.json
 
-💡 You can also add optional keys like infer, mappings, or enrich for more control.
 
-# 4. Generate
+Output:
+
+[{ "rawText": "Company Contact Telephone no Address Status ..." }]
+
+⚙️ Full Fixture Generation Example
+
+Once you have clean JSON (either from CSV, DOCX, or PDF):
+
 npx domtree-fixtures generate --config domtree.config.json
 
-✅ Output:
+
+Result:
 
 dist/
  ├─ cypress/fixtures/users.json
  ├─ tests/fixtures/users.ts
  └─ users.json
 
-🪜 Step-by-Step Example
-1️⃣ Create a sample CSV or any other file format with data
+🧩 Environment Setup for AI
 
-2️⃣ Create domtree.config.json
+Create a .env file in your project root:
 
-{
-  "input": "data/users.csv",
-  "frameworks": ["cypress", "playwright", "raw"],
-  "outputDir": "dist",
-  "datasetName": "users"
-}
+OPENAI_API_KEY=sk-<your-openai-key>
 
-3️⃣ Generate fixtures
 
-npx domtree-fixtures generate --config domtree.config.json
-
-✅ You’ll see:
-
-✅ Fixtures generated in dist
+Ensure this is not committed to Git by adding .env to .gitignore.
 
 🧠 How It Works
 
-Ingests CSV or JSON
+Reads your input file (CSV, JSON, DOCX, or PDF)
 
-Infers schema (booleans, numbers, dates, etc.)
+Extracts or generates structured JSON
 
-Normalizes headers, masks sensitive fields, fills missing data
+Infers schema and masks sensitive data
 
-Generates test-ready fixture files
+Outputs normalised fixtures for your testing frameworks
 
-Deterministic + repeatable = high-quality test data that behaves the same in local and CI environments.
+The combination of automation efficiency + AI product insight means you move faster — without losing quality.
+
+🪜 Example End-to-End Flow
+
+1️⃣ Add your data in data/
+2️⃣ Create domtree.config.json
+3️⃣ (Optional) Add .env with your OpenAI key
+4️⃣ Run extraction:
+
+npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
+
+
+5️⃣ Generate fixtures:
+
+npx domtree-fixtures generate --config domtree.config.json
+
+
+6️⃣ Use them in Cypress / Playwright tests.
+
+💬 Output Example (Cypress)
+// cypress/fixtures/users.json
+[
+  {
+    "name": "Jane Doe",
+    "email": "masked_email@example.com",
+    "age": 28
+  }
+]
+
+🧱 Roadmap
+Phase	Focus	Status
+1	CSV/JSON schema inference + fixture generation	✅ Done
+2	AI-powered extraction for PDF & DOCX	✅ Done
+3	OCR for scanned PDFs (Tesseract.js)	🚧 In progress
+4	Cloud API for bulk extraction + team dashboards	🔜 Planned
+🪪 License
+
+MIT © 2025 Domtree
+
+“Human insight. AI precision.”

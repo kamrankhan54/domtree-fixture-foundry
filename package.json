@@ -1,21 +1,41 @@
 {
   "name": "domtree-fixture-foundry",
   "version": "0.1.0",
-  "bin": { "domtree-fixtures": "dist/cli.js" },
+  "bin": {
+    "domtree-fixtures": "dist/cli.js"
+  },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/cli.js generate --config domtree.config.json"
+    "start": "node dist/cli.js generate --config domtree.config.json",
+    "extract": "node dist/cli.js extract --input data/example.pdf --output data/example.json",
+    "generate": "node dist/cli.js generate --config domtree.config.json"
   },
   "dependencies": {
     "csv-parse": "^5.5.0",
+    "dotenv": "^17.2.3",
+    "pandoc": "^0.2.0",
+    "tesseract.js": "^6.0.1",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@types/node": "^20.19.24",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/yargs": "^17.0.32",
+    "mammoth": "^1.11.0",
+    "openai": "^6.7.0",
+    "pdf-parse": "^1.1.1",
     "typescript": "^5.9.3",
-    "@types/node": "^20.11.0",
-    "@types/yargs": "^17.0.32"
+    "xlsx": "^0.18.5",
+    "zod": "^4.1.12"
   },
-  "keywords": ["qa", "testing", "fixtures", "cypress", "playwright", "domtree"],
+  "keywords": [
+    "qa",
+    "testing",
+    "fixtures",
+    "cypress",
+    "playwright",
+    "domtree"
+  ],
   "author": "Domtree.com",
   "license": "MIT"
 }
