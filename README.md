@@ -1,4 +1,4 @@
-# 🧩 Domtree Fixture Foundry
+# 🧩 Fixture Foundry by domtree.com
 
 Generate clean, consistent, and test-ready data fixtures — faster, smarter, and with quality intact.
 
