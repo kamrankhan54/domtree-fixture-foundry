@@ -2,6 +2,8 @@
 
 Generate clean, consistent, and test-ready data fixtures — faster, smarter, and with quality intact.
 
+![npm](https://img.shields.io/npm/dt/domtree-fixture-foundry)
+
 ---
 
 ## 🚀 Overview
