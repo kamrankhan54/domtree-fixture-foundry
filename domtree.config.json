@@ -1,5 +1,5 @@
 {
-  "input": "data/test2.pdf",
+  "input": "data/test.json",
   "frameworks": ["raw"],
   "outputDir": "dist",
   "datasetName": "users"
