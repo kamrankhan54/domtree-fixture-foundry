@@ -32,14 +32,17 @@ It now also includes **AI-powered extraction** for unstructured documents — le
 
 ```bash
 npm i -D domtree-fixture-foundry
+```
 
 2️⃣ Create Your Input Data
 
 You can start with a CSV, JSON, PDF, or DOCX file.
 
 Example CSV
+```bash
 mkdir -p data
 curl -L -o data/users.csv https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/people/people-100.csv
+```
 
 Example PDF (test.pdf)
 
@@ -53,7 +56,7 @@ A table of companies like:
 3️⃣ Create a Config File
 
 Create a file named domtree.config.json in your project root:
-
+```bash
 {
   "input": "data/users.csv",
   "frameworks": ["cypress", "playwright", "raw"],
@@ -61,7 +64,7 @@ Create a file named domtree.config.json in your project root:
   "datasetName": "users",
   "mask": ["email", "phone"]
 }
-
+```
 Key	Description
 input	Path to your source data (CSV, JSON, PDF, DOCX)
 frameworks	Output fixture formats
@@ -83,8 +86,12 @@ Uses OpenAI GPT-4o-mini for efficient, accurate extraction.
 Input: data/test.pdf (a table of companies)
 
 Run:
+```bash
 npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
+```
 
+Output:
+```bash
 [
   {
     "company": "Abc1",
@@ -101,6 +108,7 @@ npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
     "status": "Live"
   }
 ]
+```
 
 ✅ AI reads the PDF, recognises headers, and structures the table automatically.
 
@@ -109,10 +117,12 @@ npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
 Input: data/companies.docx (table or structured text)
 
 Run:
+```bash
 npx domtree-fixtures extract --input data/companies.docx --output data/companies.json --ai
+```
 
 Output:
-
+```bash
 [
   {
     "company": "Abc1",
@@ -129,6 +139,7 @@ Output:
     "status": "Live"
   }
 ]
+```
 
 ✅ Works for both Word tables and paragraph key/value structures.
 AI automatically infers headers and returns consistent JSON objects.
@@ -138,33 +149,38 @@ AI automatically infers headers and returns consistent JSON objects.
 If you don’t include --ai, the tool will still attempt a simple text or table parse using built-in logic.
 
 Example:
-
+```bash
 npx domtree-fixtures extract --input data/test.pdf --output data/test_raw.json
+```
 
 Output:
-
+```bash
 [
   { "rawText": "Company Contact Telephone no Address Status ..." }
 ]
+```
 
 ⚙️ Full Fixture Generation Example
 
 Once you have clean JSON (either from CSV, DOCX, or PDF):
-
+```bash
 npx domtree-fixtures generate --config domtree.config.json
+```
 
 Results:
-
+```bash
 dist/
 ├─ cypress/fixtures/users.json
 ├─ tests/fixtures/users.ts
 └─ users.json
+```
 
 🧩 Environment Setup for AI
-
+```bash
 Create a .env file in your project root:
 
 OPENAI_API_KEY=sk-...
+```
 
 Ensure this is not committed to Git by adding .env to your .gitignore.
 
@@ -186,22 +202,25 @@ The combination of automation efficiency + AI product insight means you move fas
 2️⃣ Create domtree.config.json
 3️⃣ (Optional) Add .env with your OpenAI key
 4️⃣ Run extraction:
-
+```bash
 npx domtree-fixtures extract --input data/test.pdf --output data/test.json --ai
+```
 
 5️⃣ Generate fixtures:
-
+```bash
 npx domtree-fixtures generate --config domtree.config.json
+```
 
 6️⃣ Use them in Cypress / Playwright tests.
 
 💬 Output Example (Cypress)
 
 cypress/fixtures/users.json
-
+```bash
 [
   { "name": "Jane Doe", "email": "masked_email@example.com", "age": 28 }
 ]
+```
 
 🧱 Roadmap
 
