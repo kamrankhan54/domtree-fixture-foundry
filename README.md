@@ -1,4 +1,4 @@
-# 🧩 Fixture Foundry by domtree.com
+# 🧩 Fixture Builder by domtree.com
 
 Generate clean, consistent, and test-ready data fixtures — faster, smarter, and with quality intact.
 
@@ -8,7 +8,7 @@ Generate clean, consistent, and test-ready data fixtures — faster, smarter, an
 
 ## 🚀 Overview
 
-**Domtree Fixture Foundry** is a lightweight CLI that transforms real data into normalised, ready-to-use fixtures for **Cypress**, **Playwright**, or raw **JSON** tests.
+**Domtree Fixture Builder** is a lightweight CLI that transforms real data into normalised, ready-to-use fixtures for **Cypress**, **Playwright**, or raw **JSON** tests.
 
 It now also includes **AI-powered extraction** for unstructured documents — letting you convert PDFs and Word files into structured JSON automatically.
 
