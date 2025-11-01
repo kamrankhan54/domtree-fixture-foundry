@@ -58,7 +58,7 @@ A table of companies like:
 Create a file named domtree.config.json in your project root:
 ```bash
 {
-  "input": "data/users.csv",
+  "input": "data/users.json",
   "frameworks": ["cypress", "playwright", "raw"],
   "outputDir": "dist",
   "datasetName": "users",
